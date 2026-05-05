@@ -20,6 +20,10 @@ app.use(cors({
 }));
 app.use(express.json());
 
+app.get('/', (_req, res) => {
+  res.json({ status: 'ok', service: 'TankVergelijker API', endpoints: ['/api/stations', '/api/ev-stations'] });
+});
+
 app.use('/api/stations', stationsRouter);
 app.use('/api/ev-stations', evStationsRouter);
 
