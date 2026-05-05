@@ -53,6 +53,17 @@ const OPERATOR_PRICES: Record<string, { price: number; note: string }> = {
   'eflux':          { price: 0.39, note: 'E-flux publiek tarief' },
   'blue current':   { price: 0.40, note: 'Blue Current publiek tarief' },
   'bluecurrent':    { price: 0.40, note: 'Blue Current publiek tarief' },
+  'equans':         { price: 0.31, note: 'Equans publiek AC-tarief (Amsterdam e.o.)' },
+  'cofely':         { price: 0.31, note: 'Equans/Cofely publiek tarief' },
+  'greenflux':      { price: 0.41, note: 'Greenflux publiek tarief' },
+  'green flux':     { price: 0.41, note: 'Greenflux publiek tarief' },
+  'ecotap':         { price: 0.38, note: 'Ecotap publiek tarief' },
+  'amsterdam':      { price: 0.31, note: 'Gemeente Amsterdam laadpaal tarief' },
+  'pitpoint':       { price: 0.42, note: 'PitPoint publiek tarief' },
+  'alfen':          { price: 0.39, note: 'Indicatief tarief (varieert per beheerder)' },
+  'park n charge':  { price: 0.35, note: 'Park & Charge publiek tarief' },
+  'park&charge':    { price: 0.35, note: 'Park & Charge publiek tarief' },
+  'engie':          { price: 0.34, note: 'Engie publiek tarief' },
 };
 
 function normalizeOperator(raw: string): string {
