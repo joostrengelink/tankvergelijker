@@ -9,7 +9,15 @@ dotenv.config({ path: '../../.env' });
 const app = express();
 const PORT = process.env.PORT ?? 3001;
 
-app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:5174'] }));
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'capacitor://localhost',
+    'ionic://localhost',
+    'http://localhost',
+  ],
+}));
 app.use(express.json());
 
 app.use('/api/stations', stationsRouter);
