@@ -195,8 +195,9 @@ export default function App() {
         </div>
       )}
 
-      <div className="flex-1 flex overflow-hidden">
-        <div className="flex-1 relative">
+      {/* Mobile: kaart boven, lijst onder. Desktop: naast elkaar */}
+      <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
+        <div className="h-[42vh] md:h-auto md:flex-1 relative shrink-0">
           <MapView
             center={mapCenter}
             stations={mode === 'fuel' ? enrichedStations : []}
@@ -210,7 +211,7 @@ export default function App() {
           />
         </div>
 
-        <div className="w-[380px] flex flex-col bg-slate-50 border-l border-slate-200 overflow-hidden">
+        <div className="flex-1 min-h-0 md:flex-none md:w-[380px] flex flex-col bg-slate-50 md:border-l border-t md:border-t-0 border-slate-200 overflow-hidden">
           {mode === 'fuel' ? (
             <StationList
               stations={enrichedStations}
