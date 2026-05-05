@@ -22,11 +22,11 @@ export default function EVStationList({ stations, hoveredId, selectedId, onHover
 
   if (stations.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center flex-1 text-slate-300 px-6 text-center gap-3">
-        <svg className="w-14 h-14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="flex flex-col items-center justify-center flex-1 px-6 text-center gap-3">
+        <svg className="w-14 h-14 text-white/10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>
-        <p className="text-sm text-slate-400">Zoek een stad of postcode<br/>om laadpalen te vinden</p>
+        <p className="text-sm text-white/30">Zoek een stad of postcode<br/>om laadpalen te vinden</p>
       </div>
     );
   }
@@ -43,17 +43,21 @@ export default function EVStationList({ stations, hoveredId, selectedId, onHover
           <button
             key={f}
             onClick={() => setFilter(f)}
-            className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-              filter === f ? 'bg-green-500 text-white shadow-sm' : 'bg-white text-slate-500 border border-slate-200 hover:border-green-300'
+            className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all tracking-wide ${
+              filter === f
+                ? 'bg-[#00E5FF] text-[#111] shadow-md shadow-[#00E5FF]/20'
+                : 'bg-[#1A1A1A] text-white/30 border border-white/10 hover:border-[#00E5FF]/30 hover:text-white/60'
             }`}
+            style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '0.05em' }}
           >
-            {f === 'all' ? 'Alle' : f === 'fast' ? '⚡ Snel (DC)' : '~ Normaal (AC)'}
+            {f === 'all' ? 'ALLE' : f === 'fast' ? '⚡ SNEL DC' : '~ NORMAAL AC'}
           </button>
         ))}
       </div>
 
-      <p className="px-4 pb-2 text-[11px] text-slate-400 font-medium uppercase tracking-wider">
-        {filtered.length} laadpalen · gesorteerd op afstand
+      <p className="px-4 pb-2 text-[10px] text-white/25 font-bold uppercase tracking-widest"
+        style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>
+        {filtered.length} laadpalen · afstand
       </p>
 
       {filtered.map((station, i) => (

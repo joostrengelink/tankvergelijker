@@ -7,38 +7,54 @@ html, body, #root {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
-  background: #f1f5f9;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: #111111;
 }
 
+/* Price markers op de kaart */
 .price-marker {
-  background: white;
-  border: 2px solid #cbd5e1;
-  border-radius: 8px;
+  background: #1A1A1A;
+  border: 2px solid rgba(255,255,255,0.15);
+  border-radius: 6px;
   padding: 3px 7px;
   font-size: 12px;
   font-weight: 700;
-  color: #1e293b;
+  font-family: 'Barlow Condensed', sans-serif;
+  color: #ffffff;
   white-space: nowrap;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  font-family: system-ui, sans-serif;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.6);
   cursor: pointer;
   transition: all 0.15s;
+  letter-spacing: 0.02em;
 }
 .price-marker.hovered, .price-marker.selected {
-  background: #f97316;
-  border-color: #ea580c;
+  background: #FF4500;
+  border-color: #FF4500;
   color: white;
-  transform: scale(1.1);
-  box-shadow: 0 3px 10px rgba(249,115,22,0.4);
+  transform: scale(1.15);
+  box-shadow: 0 4px 14px rgba(255,69,0,0.5);
   z-index: 1000 !important;
 }
 .price-marker.cheapest {
-  border-color: #16a34a;
-  color: #15803d;
+  border-color: #FFD600;
+  color: #FFD600;
 }
-.price-marker.cheapest.hovered, .price-marker.cheapest.selected {
-  background: #f97316;
-  border-color: #ea580c;
+.price-marker.cheapest.hovered,
+.price-marker.cheapest.selected {
+  background: #FF4500;
+  border-color: #FF4500;
   color: white;
 }
+
+/* Leaflet donkere popup */
+.leaflet-popup-content-wrapper {
+  background: #1A1A1A;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  border-radius: 10px;
+}
+.leaflet-popup-tip {
+  background: #1A1A1A;
+}
+.leaflet-popup-content a { color: #FF4500; }

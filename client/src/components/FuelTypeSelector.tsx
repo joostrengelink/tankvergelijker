@@ -15,11 +15,12 @@ export default function FuelTypeSelector({ selected, onChange }: Props) {
         <button
           key={fuel}
           onClick={() => onChange(fuel)}
-          className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-all ${
+          className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all tracking-wide ${
             selected === fuel
-              ? 'bg-orange-500 text-white shadow-sm'
-              : 'bg-white text-slate-500 border border-slate-200 hover:border-orange-300 hover:text-orange-500'
+              ? 'bg-[#FF4500] text-white shadow-md shadow-[#FF4500]/30'
+              : 'bg-[#1A1A1A] text-white/40 border border-white/10 hover:border-[#FF4500]/40 hover:text-white/70'
           }`}
+          style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '0.05em' }}
         >
           {FUEL_LABELS[fuel]}
         </button>

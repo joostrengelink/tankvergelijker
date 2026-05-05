@@ -74,8 +74,10 @@ function EVMarkerLayer({ stations, hoveredId, selectedId, onMarkerClick }: { sta
     }
     for (const s of stations) {
       const isActive = hoveredId === s.id || selectedId === s.id;
-      const color = isActive ? '#22c55e' : s.isFastCharger ? '#3b82f6' : '#94a3b8';
-      const html = `<div style="background:${color};color:white;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,0.25);font-size:12px;${isActive ? 'transform:scale(1.2);' : ''}">⚡</div>`;
+      const color = isActive ? '#00E5FF' : s.isFastCharger ? '#00E5FF' : '#ffffff';
+      const bg = isActive ? '#00E5FF' : s.isFastCharger ? 'rgba(0,229,255,0.15)' : 'rgba(255,255,255,0.08)';
+      const border = isActive ? '#00E5FF' : s.isFastCharger ? 'rgba(0,229,255,0.5)' : 'rgba(255,255,255,0.2)';
+      const html = `<div style="background:${bg};color:${color};border:2px solid ${border};border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.5);font-size:13px;${isActive ? 'transform:scale(1.2);box-shadow:0 0 12px rgba(0,229,255,0.4);' : ''}">⚡</div>`;
       const icon = L.divIcon({ html, className: '', iconAnchor: [11, 11] });
       const m = existing.get(s.id);
       if (m) { m.setIcon(icon); }
@@ -118,8 +120,8 @@ export default function MapView({ center, stations, evStations, mode, selectedFu
   return (
     <MapContainer center={center ?? [52.3676, 4.9041]} zoom={center ? 12 : 7} style={{ height: '100%', width: '100%' }}>
       <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'
       />
       <RecenterMap center={center} />
       {mode === 'fuel' && (
