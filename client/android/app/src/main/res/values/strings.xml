@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">TankVergelijker</string>
+    <string name="title_activity_main">TankVergelijker</string>
+    <string name="package_name">nl.tankvergelijker.app</string>
+    <string name="custom_url_scheme">nl.tankvergelijker.app</string>
+</resources>

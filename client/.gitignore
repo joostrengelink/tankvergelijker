@@ -15,6 +15,11 @@ dist-ssr
 # iOS Pods (installed via CocoaPods at build time)
 ios/App/Pods/
 
+# Android build artifacts
+android/app/build/
+android/.gradle/
+android/build/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
