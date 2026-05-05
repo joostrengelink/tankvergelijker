@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# iOS Pods (installed via CocoaPods at build time)
+ios/App/Pods/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
