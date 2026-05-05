@@ -1,0 +1,44 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: #f1f5f9;
+}
+
+.price-marker {
+  background: white;
+  border: 2px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #1e293b;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  font-family: system-ui, sans-serif;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.price-marker.hovered, .price-marker.selected {
+  background: #f97316;
+  border-color: #ea580c;
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 3px 10px rgba(249,115,22,0.4);
+  z-index: 1000 !important;
+}
+.price-marker.cheapest {
+  border-color: #16a34a;
+  color: #15803d;
+}
+.price-marker.cheapest.hovered, .price-marker.cheapest.selected {
+  background: #f97316;
+  border-color: #ea580c;
+  color: white;
+}

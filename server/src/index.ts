@@ -1,0 +1,20 @@
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import stationsRouter from './routes/stations';
+import evStationsRouter from './routes/ev-stations';
+
+dotenv.config({ path: '../../.env' });
+
+const app = express();
+const PORT = process.env.PORT ?? 3001;
+
+app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:5174'] }));
+app.use(express.json());
+
+app.use('/api/stations', stationsRouter);
+app.use('/api/ev-stations', evStationsRouter);
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
