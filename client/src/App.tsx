@@ -1,4 +1,5 @@
 import { useReducer, useEffect, useMemo, useState } from 'react';
+import { Loader2 } from 'lucide-react';
 import type { AppState, AppAction } from './types';
 import type { EVStation, AppMode } from './types/ev';
 import { geocodeQuery } from './services/geocoding';
@@ -145,21 +146,21 @@ export default function App() {
   const isLoading = state.status === 'loading' || state.status === 'geocoding' || evLoading;
 
   return (
-    <div className="flex flex-col h-screen bg-[#111111]">
+    <div className="flex flex-col h-screen" style={{ background: 'var(--c-bg)' }}>
       {/* Header */}
-      <header className="flex-shrink-0 bg-[#111111] border-b border-white/10">
+      <header className="flex-shrink-0" style={{ background: 'var(--c-bg)', borderBottom: '1px solid var(--c-border)' }}>
         <div className="px-4 pt-3 pb-1 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-[#FF4500]" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M19.77 7.23l.01-.01-3.72-3.72L15 4.56l2.11 2.11c-.94.36-1.61 1.26-1.61 2.33a2.5 2.5 0 002.5 2.5c.36 0 .69-.08 1-.21v7.21c0 .55-.45 1-1 1s-1-.45-1-1V14c0-1.1-.9-2-2-2h-1V5c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v16h10v-7.5h1.5v5a2.5 2.5 0 005 0V9c0-.69-.28-1.32-.73-1.77zM12 12.5H8V9h4v3.5z"/>
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" style={{ color: 'var(--c-accent)' }}>
+              <path d="M19.77 7.23l.01-.01-3.72-3.72L15 4.56l2.11 2.11c-.94.36-1.61 1.26-1.61 2.33a2.5 2.5 0 002.5 2.5c.36 0 .69-.08 1-.21v7.21c0 .55-.45 1-1 1s-1-.45-1-1V14c0-1.1-.9-2-2-2h-1V5c0-1.1-.9-2-2-2H6c-1.1 0-2 .9-2 2v16h10v-7.5h1.5v5a2.5 2.5 0 005 0V9c0-.69-.28-1.32-.73-1.77zM12 12.5H8V9h4v3.5z" />
             </svg>
-            <span className="text-white font-bold tracking-tight" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '18px', letterSpacing: '0.05em' }}>
+            <span className="font-bold" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: '18px', letterSpacing: '0.05em', color: 'var(--c-text)' }}>
               TANKVERGELIJKER
             </span>
           </div>
           {isLoading && (
-            <div className="flex items-center gap-1.5 text-white/40 text-xs">
-              <span className="block w-3 h-3 border-2 border-white/20 border-t-[#FF4500] rounded-full animate-spin" />
+            <div className="flex items-center gap-1.5 text-xs" style={{ color: 'var(--c-text-3)' }}>
+              <Loader2 size={12} className="animate-spin" style={{ color: 'var(--c-accent)' }} />
               {evLoading ? 'Laadpalen ophalen…' : 'Ophalen…'}
             </div>
           )}
@@ -184,13 +185,20 @@ export default function App() {
       </header>
 
       {state.status === 'error' && state.errorMessage && (
-        <div className="flex-shrink-0 mx-3 mt-2 px-3 py-2.5 bg-[#FF4500]/10 border border-[#FF4500]/30 rounded-xl text-sm text-[#FF4500] flex items-center gap-2">
-          <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" /></svg>
+        <div className="flex-shrink-0 mx-3 mt-2 px-3 py-2.5 rounded-xl text-sm flex items-center gap-2"
+          style={{
+            background: 'var(--c-accent-dim)',
+            border: '1px solid var(--c-accent)',
+            color: 'var(--c-accent)',
+          }}>
+          <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+          </svg>
           {state.errorMessage}
         </div>
       )}
 
-      {/* Mobile: kaart boven, lijst onder. Desktop: naast elkaar */}
+      {/* Mobile: map top, list below. Desktop: side by side */}
       <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
         <div className="h-[42vh] md:h-auto md:flex-1 relative shrink-0">
           <MapView
@@ -206,7 +214,9 @@ export default function App() {
           />
         </div>
 
-        <div className="flex-1 min-h-0 md:flex-none md:w-[380px] flex flex-col bg-[#111111] md:border-l border-t md:border-t-0 border-white/10 overflow-hidden">
+        <div className="flex-1 min-h-0 md:flex-none md:w-[380px] flex flex-col overflow-hidden"
+          style={{ background: 'var(--c-bg)', borderTop: '1px solid var(--c-border)' }}
+        >
           {mode === 'fuel' ? (
             <StationList
               stations={enrichedStations}
@@ -214,6 +224,7 @@ export default function App() {
               hoveredId={state.hoveredStationId}
               selectedId={state.selectedStationId}
               usingMockData={state.usingMockData}
+              status={state.status}
               onHover={(id) => dispatch({ type: 'STATION_HOVERED', id })}
               onSelect={(id) => dispatch({ type: 'STATION_SELECTED', id })}
             />
@@ -222,6 +233,7 @@ export default function App() {
               stations={evStations}
               hoveredId={state.hoveredStationId}
               selectedId={state.selectedStationId}
+              isLoading={evLoading}
               onHover={(id) => dispatch({ type: 'STATION_HOVERED', id })}
               onSelect={(id) => dispatch({ type: 'STATION_SELECTED', id })}
             />

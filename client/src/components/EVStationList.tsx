@@ -1,18 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
+import { Zap } from 'lucide-react';
 import type { EVStation } from '../types/ev';
 import EVStationCard from './EVStationCard';
+import { EVSkeletonCard } from './ui/SkeletonCard';
 
 interface Props {
   stations: EVStation[];
   hoveredId: string | null;
   selectedId: string | null;
+  isLoading: boolean;
   onHover: (id: string | null) => void;
   onSelect: (id: string) => void;
 }
 
 type Filter = 'all' | 'fast' | 'ac';
 
-export default function EVStationList({ stations, hoveredId, selectedId, onHover, onSelect }: Props) {
+const FILTER_LABELS: Record<Filter, string> = { all: 'ALLE', fast: '⚡ SNEL DC', ac: '~ NORMAAL AC' };
+
+export default function EVStationList({ stations, hoveredId, selectedId, isLoading, onHover, onSelect }: Props) {
   const selectedRef = useRef<HTMLDivElement>(null);
   const [filter, setFilter] = useState<Filter>('all');
 
@@ -20,13 +25,21 @@ export default function EVStationList({ stations, hoveredId, selectedId, onHover
     selectedRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }, [selectedId]);
 
+  if (isLoading) {
+    return (
+      <div className="flex-1 overflow-y-auto py-2">
+        {[...Array(5)].map((_, i) => <EVSkeletonCard key={i} />)}
+      </div>
+    );
+  }
+
   if (stations.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center flex-1 px-6 text-center gap-3">
-        <svg className="w-14 h-14 text-white/10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M13 10V3L4 14h7v7l9-11h-7z" />
-        </svg>
-        <p className="text-sm text-white/30">Zoek een stad of postcode<br/>om laadpalen te vinden</p>
+        <Zap size={56} style={{ color: 'var(--c-surface-3)' }} strokeWidth={1} />
+        <p className="text-sm" style={{ color: 'var(--c-text-3)' }}>
+          Zoek een stad of postcode<br />om laadpalen te vinden
+        </p>
       </div>
     );
   }
@@ -43,20 +56,23 @@ export default function EVStationList({ stations, hoveredId, selectedId, onHover
           <button
             key={f}
             onClick={() => setFilter(f)}
-            className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all tracking-wide ${
-              filter === f
-                ? 'bg-[#00E5FF] text-[#111] shadow-md shadow-[#00E5FF]/20'
-                : 'bg-[#1A1A1A] text-white/30 border border-white/10 hover:border-[#00E5FF]/30 hover:text-white/60'
-            }`}
-            style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '0.05em' }}
+            className="flex-1 py-1.5 text-xs font-bold rounded-lg transition-all"
+            style={{
+              fontFamily: "'Barlow Condensed', sans-serif",
+              letterSpacing: '0.05em',
+              background: filter === f ? 'var(--c-ev)' : 'var(--c-surface-2)',
+              color: filter === f ? '#111' : 'var(--c-text-3)',
+              border: `1px solid ${filter === f ? 'var(--c-ev)' : 'var(--c-border)'}`,
+              boxShadow: filter === f ? '0 2px 8px var(--c-ev-glow)' : 'none',
+            }}
           >
-            {f === 'all' ? 'ALLE' : f === 'fast' ? '⚡ SNEL DC' : '~ NORMAAL AC'}
+            {FILTER_LABELS[f]}
           </button>
         ))}
       </div>
 
-      <p className="px-4 pb-2 text-[10px] text-white/25 font-bold uppercase tracking-widest"
-        style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>
+      <p className="px-4 pb-2 text-[10px] font-bold uppercase tracking-widest"
+        style={{ color: 'var(--c-text-3)', fontFamily: "'Barlow Condensed', sans-serif" }}>
         {filtered.length} laadpalen · afstand
       </p>
 
