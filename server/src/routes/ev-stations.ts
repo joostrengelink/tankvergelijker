@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { fetchEVStations, type EVStation } from '../services/overpass';
-import { fetchEVStationsFromOCM } from '../services/ocm';
 import { MemoryCache } from '../cache/memoryCache';
 
 const router = Router();
@@ -20,18 +19,7 @@ router.get('/', async (req, res) => {
   const cached = cache.get(cacheKey);
   if (cached) { res.json(cached); return; }
 
-  // Try OCM first (real pricing), fall back to Overpass (OSM data)
-  if (process.env.OCM_API_KEY) {
-    try {
-      const stations = await fetchEVStationsFromOCM(lat, lon, radius);
-      cache.set(cacheKey, stations);
-      res.json(stations);
-      return;
-    } catch (err) {
-      console.warn('OCM fout, val terug op Overpass:', err);
-    }
-  }
-
+  // Overpass (OSM) — meer stations, actueler data, betere prijsdekking voor NL
   try {
     const stations = await fetchEVStations(lat, lon, radius);
     cache.set(cacheKey, stations);
