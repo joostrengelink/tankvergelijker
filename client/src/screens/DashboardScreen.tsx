@@ -42,6 +42,10 @@ export default function DashboardScreen({ onSearch }: Props) {
   const [searchLoading, setSearchLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  function vibrate(ms = 10) {
+    if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(ms);
+  }
+
   function handleGPS() {
     if (!navigator.geolocation) {
       setError('Geolocatie niet ondersteund door deze browser');
@@ -96,7 +100,8 @@ export default function DashboardScreen({ onSearch }: Props) {
       style={{ background: 'var(--c-bg)' }}
     >
       {/* Header */}
-      <header className="flex-shrink-0 px-5 pt-12 pb-8 flex items-center justify-between">
+      <header className="flex-shrink-0 px-5 pb-8 flex items-center justify-between"
+        style={{ paddingTop: 'max(48px, env(safe-area-inset-top))' }}>
         <div className="flex items-center gap-3">
           <div
             className="w-10 h-10 rounded-2xl flex items-center justify-center"
@@ -140,7 +145,7 @@ export default function DashboardScreen({ onSearch }: Props) {
               return (
                 <button
                   key={id}
-                  onClick={() => setSelectedFuel(id)}
+                  onClick={() => { setSelectedFuel(id); vibrate(10); }}
                   className="flex flex-col items-center justify-center gap-3 py-6 rounded-2xl transition-all duration-200 active:scale-95"
                   style={{
                     background: isSelected ? activeDim : 'var(--c-surface)',
@@ -278,8 +283,8 @@ export default function DashboardScreen({ onSearch }: Props) {
             {RADII.map((r) => (
               <button
                 key={r}
-                onClick={() => setRadius(r)}
-                className="flex-1 py-2.5 rounded-xl text-sm font-bold transition-all active:scale-95"
+                onClick={() => { setRadius(r); vibrate(8); }}
+                className="flex-1 py-3 rounded-xl text-sm font-bold transition-all active:scale-95"
                 style={{
                   fontFamily: "'Barlow Condensed', sans-serif",
                   letterSpacing: '0.03em',
@@ -314,7 +319,7 @@ export default function DashboardScreen({ onSearch }: Props) {
 
         {/* ── CTA ── */}
         <button
-          onClick={handleSubmit}
+          onClick={() => { vibrate(20); handleSubmit(); }}
           disabled={isLoading}
           className="w-full flex items-center justify-center gap-3 rounded-2xl font-black transition-all active:scale-[0.98] disabled:opacity-50"
           style={{

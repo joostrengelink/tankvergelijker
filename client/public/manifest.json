@@ -4,8 +4,8 @@
   "description": "Goedkoopste benzine en laadpalen bij jou in de buurt",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0f2744",
-  "theme_color": "#0f2744",
+  "background_color": "#0A1412",
+  "theme_color": "#059669",
   "orientation": "portrait",
   "icons": [
     {

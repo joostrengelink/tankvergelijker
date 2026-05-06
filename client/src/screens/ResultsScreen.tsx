@@ -125,7 +125,7 @@ export default function ResultsScreen({
         <div className="px-3 py-2.5 flex items-center gap-2">
           <button
             onClick={onBack}
-            className="flex items-center justify-center w-9 h-9 rounded-xl flex-shrink-0 transition-colors active:scale-95"
+            className="flex items-center justify-center w-11 h-11 rounded-xl flex-shrink-0 transition-colors active:scale-95"
             style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-border)' }}
             aria-label="Terug"
           >
@@ -151,7 +151,7 @@ export default function ResultsScreen({
           ) : (
             <button
               onClick={onRefresh}
-              className="flex items-center justify-center w-9 h-9 rounded-xl flex-shrink-0 transition-colors active:scale-95"
+              className="flex items-center justify-center w-11 h-11 rounded-xl flex-shrink-0 transition-colors active:scale-95"
               style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-border)' }}
               aria-label="Vernieuwen"
             >
@@ -248,8 +248,10 @@ export default function ResultsScreen({
               selectedId={selectedId}
               usingMockData={usingMockData}
               status={status}
+              radius={searchParams.radius}
               onHover={onHover}
               onSelect={(id) => onSelect(id)}
+              onRetry={onRefresh}
             />
           ) : (
             <EVStationList
@@ -257,8 +259,10 @@ export default function ResultsScreen({
               hoveredId={hoveredId}
               selectedId={selectedId}
               isLoading={evLoading}
+              radius={searchParams.radius}
               onHover={onHover}
               onSelect={(id) => onSelect(id)}
+              onRetry={onRefresh}
             />
           )}
         </div>

@@ -11,11 +11,13 @@ interface Props {
   selectedId: string | null;
   usingMockData: boolean;
   status: AppStatus;
+  radius?: number;
   onHover: (id: string | null) => void;
   onSelect: (id: string) => void;
+  onRetry?: () => void;
 }
 
-export default function StationList({ stations, selectedFuel, hoveredId, selectedId, usingMockData, status, onHover, onSelect }: Props) {
+export default function StationList({ stations, selectedFuel, hoveredId, selectedId, usingMockData, status, radius, onHover, onSelect, onRetry }: Props) {
   const selectedRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -32,11 +34,25 @@ export default function StationList({ stations, selectedFuel, hoveredId, selecte
 
   if (stations.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center flex-1 px-6 text-center gap-3">
-        <MapPin size={56} style={{ color: 'var(--c-surface-3)' }} strokeWidth={1} />
-        <p className="text-sm" style={{ color: 'var(--c-text-3)' }}>
-          Zoek een stad of postcode<br />om tankstations te vinden
-        </p>
+      <div className="flex flex-col items-center justify-center flex-1 px-6 text-center gap-4">
+        <MapPin size={48} style={{ color: 'var(--c-surface-3)' }} strokeWidth={1} />
+        <div>
+          <p className="text-sm font-semibold" style={{ color: 'var(--c-text-2)' }}>
+            Geen stations gevonden
+          </p>
+          <p className="text-xs mt-1" style={{ color: 'var(--c-text-3)' }}>
+            {radius ? `Binnen ${radius} km zijn geen stations met dit brandstoftype gevonden` : 'Probeer een grotere zoekradius'}
+          </p>
+        </div>
+        {onRetry && (
+          <button
+            onClick={onRetry}
+            className="px-4 py-2 rounded-xl text-sm font-bold transition-all active:scale-95"
+            style={{ background: 'var(--c-surface-2)', color: 'var(--c-text-2)', border: '1px solid var(--c-border)' }}
+          >
+            Opnieuw zoeken
+          </button>
+        )}
       </div>
     );
   }

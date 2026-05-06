@@ -15,7 +15,7 @@ export default function FuelTypeSelector({ selected, onChange }: Props) {
         <button
           key={fuel}
           onClick={() => onChange(fuel)}
-          className="flex-1 py-1.5 text-xs font-bold rounded-lg transition-all"
+          className="flex-1 py-2.5 text-xs font-bold rounded-lg transition-all active:scale-95"
           style={{
             fontFamily: "'Barlow Condensed', sans-serif",
             letterSpacing: '0.05em',

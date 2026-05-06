@@ -74,7 +74,7 @@ export default function BottomSheet({ data, onClose }: Props) {
           <div className="w-10 h-1 rounded-full" style={{ background: 'var(--c-surface-3)' }} />
         </div>
 
-        <div className="px-5 pt-2 pb-8 md:pb-5">
+        <div className="px-5 pt-2 md:pb-5" style={{ paddingBottom: 'max(32px, calc(env(safe-area-inset-bottom) + 20px))' }}>
           {/* Header */}
           <div className="flex items-start justify-between gap-3 mb-4">
             <div className="flex-1 min-w-0">

@@ -46,7 +46,6 @@ export default function App() {
 
   const mode = searchParams?.fuel === 'ev' ? 'ev' : 'fuel';
 
-  // Fetch fuel stations
   useEffect(() => {
     if (!state.searchLocation || state.status !== 'loading' || mode === 'ev') return;
     const { lat, lon } = state.searchLocation;
@@ -71,7 +70,6 @@ export default function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.searchLocation]);
 
-  // Fetch EV stations
   useEffect(() => {
     if (!state.searchLocation || mode !== 'ev') return;
     const { lat, lon } = state.searchLocation;
@@ -87,21 +85,19 @@ export default function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.searchLocation]);
 
-  const enrichedStations = useMemo(() => {
-    if (!state.searchLocation) return state.stations;
-    return state.stations.map((s) => {
+  const enrichedStations = useMemo(() =>
+    state.stations.map((s) => {
       const price = s.prices[state.selectedFuel];
       return { ...s, smartScore: price !== undefined ? smartScore(price, s.distanceKm ?? 0) : Infinity };
-    });
-  }, [state.stations, state.selectedFuel, state.searchLocation]);
+    }),
+    [state.stations, state.selectedFuel]
+  );
 
   function handleSearch(params: DashboardSearchParams) {
     setSearchParams(params);
     setScreen('results');
     setEvStations([]);
-    if (params.fuel !== 'ev') {
-      dispatch({ type: 'FUEL_CHANGED', fuel: params.fuel as FuelType });
-    }
+    if (params.fuel !== 'ev') dispatch({ type: 'FUEL_CHANGED', fuel: params.fuel as FuelType });
     dispatch({
       type: 'GEOCODE_SUCCESS',
       location: { query: params.displayName, lat: params.lat, lon: params.lon, displayName: params.displayName },
@@ -118,25 +114,31 @@ export default function App() {
   }
 
   if (screen === 'dashboard') {
-    return <DashboardScreen onSearch={handleSearch} />;
+    return (
+      <div className="animate-fade-in h-screen overflow-hidden">
+        <DashboardScreen onSearch={handleSearch} />
+      </div>
+    );
   }
 
   return (
-    <ResultsScreen
-      searchParams={searchParams!}
-      stations={enrichedStations}
-      selectedFuel={state.selectedFuel}
-      status={state.status}
-      usingMockData={state.usingMockData}
-      onFuelChange={(fuel) => dispatch({ type: 'FUEL_CHANGED', fuel })}
-      evStations={evStations}
-      evLoading={evLoading}
-      hoveredId={state.hoveredStationId}
-      selectedId={state.selectedStationId}
-      onHover={(id) => dispatch({ type: 'STATION_HOVERED', id })}
-      onSelect={(id) => dispatch({ type: 'STATION_SELECTED', id })}
-      onBack={() => setScreen('dashboard')}
-      onRefresh={handleRefresh}
-    />
+    <div className="animate-screen-enter h-screen overflow-hidden">
+      <ResultsScreen
+        searchParams={searchParams!}
+        stations={enrichedStations}
+        selectedFuel={state.selectedFuel}
+        status={state.status}
+        usingMockData={state.usingMockData}
+        onFuelChange={(fuel) => dispatch({ type: 'FUEL_CHANGED', fuel })}
+        evStations={evStations}
+        evLoading={evLoading}
+        hoveredId={state.hoveredStationId}
+        selectedId={state.selectedStationId}
+        onHover={(id) => dispatch({ type: 'STATION_HOVERED', id })}
+        onSelect={(id) => dispatch({ type: 'STATION_SELECTED', id })}
+        onBack={() => setScreen('dashboard')}
+        onRefresh={handleRefresh}
+      />
+    </div>
   );
 }

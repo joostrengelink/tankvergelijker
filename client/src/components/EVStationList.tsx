@@ -9,15 +9,17 @@ interface Props {
   hoveredId: string | null;
   selectedId: string | null;
   isLoading: boolean;
+  radius?: number;
   onHover: (id: string | null) => void;
   onSelect: (id: string) => void;
+  onRetry?: () => void;
 }
 
 type Filter = 'all' | 'fast' | 'ac';
 
 const FILTER_LABELS: Record<Filter, string> = { all: 'ALLE', fast: '⚡ SNEL DC', ac: '~ NORMAAL AC' };
 
-export default function EVStationList({ stations, hoveredId, selectedId, isLoading, onHover, onSelect }: Props) {
+export default function EVStationList({ stations, hoveredId, selectedId, isLoading, radius, onHover, onSelect, onRetry }: Props) {
   const selectedRef = useRef<HTMLDivElement>(null);
   const [filter, setFilter] = useState<Filter>('all');
 
@@ -35,11 +37,25 @@ export default function EVStationList({ stations, hoveredId, selectedId, isLoadi
 
   if (stations.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center flex-1 px-6 text-center gap-3">
-        <Zap size={56} style={{ color: 'var(--c-surface-3)' }} strokeWidth={1} />
-        <p className="text-sm" style={{ color: 'var(--c-text-3)' }}>
-          Zoek een stad of postcode<br />om laadpalen te vinden
-        </p>
+      <div className="flex flex-col items-center justify-center flex-1 px-6 text-center gap-4">
+        <Zap size={48} style={{ color: 'var(--c-surface-3)' }} strokeWidth={1} />
+        <div>
+          <p className="text-sm font-semibold" style={{ color: 'var(--c-text-2)' }}>
+            Geen laadpalen gevonden
+          </p>
+          <p className="text-xs mt-1" style={{ color: 'var(--c-text-3)' }}>
+            {radius ? `Binnen ${radius} km zijn geen laadpalen gevonden` : 'Probeer een grotere zoekradius'}
+          </p>
+        </div>
+        {onRetry && (
+          <button
+            onClick={onRetry}
+            className="px-4 py-2 rounded-xl text-sm font-bold transition-all active:scale-95"
+            style={{ background: 'var(--c-surface-2)', color: 'var(--c-text-2)', border: '1px solid var(--c-border)' }}
+          >
+            Opnieuw zoeken
+          </button>
+        )}
       </div>
     );
   }
@@ -56,7 +72,7 @@ export default function EVStationList({ stations, hoveredId, selectedId, isLoadi
           <button
             key={f}
             onClick={() => setFilter(f)}
-            className="flex-1 py-1.5 text-xs font-bold rounded-lg transition-all"
+            className="flex-1 py-2.5 text-xs font-bold rounded-lg transition-all active:scale-95"
             style={{
               fontFamily: "'Barlow Condensed', sans-serif",
               letterSpacing: '0.05em',
