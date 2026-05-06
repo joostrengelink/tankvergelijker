@@ -211,6 +211,25 @@ html, body, #root {
   font-size: 18px !important;
 }
 
+/* ─────────────────────────────────────────────────────────────
+   PRICE TIER MARKERS — relative coloring on map pins
+───────────────────────────────────────────────────────────── */
+.price-marker.tier-cheap  { border-color: #10B981; color: #10B981; }
+.price-marker.tier-mid    { border-color: #F59E0B; color: #F59E0B; }
+.price-marker.tier-pricey { border-color: #EF4444; color: #EF4444; }
+
+/* cheapest must win over tier-cheap (same specificity, later = wins) */
+.price-marker.cheapest { border-color: var(--c-highlight); color: var(--c-highlight); }
+
+/* ─────────────────────────────────────────────────────────────
+   BOTTOM SHEET
+───────────────────────────────────────────────────────────── */
+@keyframes sheet-enter {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+.animate-sheet-enter { animation: sheet-enter 0.32s cubic-bezier(0.32, 0.72, 0, 1) both; }
+
 /* Scrollbar */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
