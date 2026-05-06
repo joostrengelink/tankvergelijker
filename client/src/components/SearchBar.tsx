@@ -40,7 +40,7 @@ export default function SearchBar({ onSearch, onGeolocate, status, geolocationLo
             value={value}
             onChange={(e) => { setValue(e.target.value); setError(null); }}
             placeholder="Stad of postcode..."
-            className="w-full pl-9 pr-3 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4500]/60 focus:border-[#FF4500]/60 transition-colors"
+            className="w-full pl-9 pr-3 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#059669]/50 transition-colors"
             style={{
               background: 'var(--c-surface-2)',
               border: '1px solid var(--c-border)',
@@ -58,7 +58,7 @@ export default function SearchBar({ onSearch, onGeolocate, status, geolocationLo
           style={{ background: 'var(--c-surface-2)', border: '1px solid var(--c-border)', color: 'var(--c-text-3)' }}
         >
           {geolocationLoading
-            ? <Loader2 size={16} className="animate-spin" style={{ color: 'var(--c-accent)' }} />
+            ? <Loader2 size={16} className="animate-spin" style={{ color: 'var(--c-primary)' }} />
             : <MapPin size={16} />
           }
         </button>
@@ -67,7 +67,7 @@ export default function SearchBar({ onSearch, onGeolocate, status, geolocationLo
           disabled={isLoading || !value.trim()}
           className="px-4 py-2.5 rounded-xl text-sm font-bold disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           style={{
-            background: 'var(--c-accent)',
+            background: 'var(--c-primary)',
             color: '#fff',
             fontFamily: "'Barlow Condensed', sans-serif",
             letterSpacing: '0.05em',
@@ -76,7 +76,7 @@ export default function SearchBar({ onSearch, onGeolocate, status, geolocationLo
           {isLoading ? 'ZOEKEN…' : 'ZOEK'}
         </button>
       </form>
-      {error && <p className="mt-1.5 text-xs pl-1" style={{ color: 'var(--c-accent)' }}>{error}</p>}
+      {error && <p className="mt-1.5 text-xs pl-1" style={{ color: 'var(--c-primary)' }}>{error}</p>}
       {currentLocation && !error && (
         <p className="mt-1.5 text-xs pl-1 flex items-center gap-1" style={{ color: 'var(--c-text-3)' }}>
           <MapPin size={11} />

@@ -15,9 +15,9 @@ export default function ModeToggle({ mode, onChange }: Props) {
         style={{
           fontFamily: "'Barlow Condensed', sans-serif",
           letterSpacing: '0.06em',
-          background: mode === 'fuel' ? 'var(--c-accent)' : 'transparent',
+          background: mode === 'fuel' ? 'var(--c-primary)' : 'transparent',
           color: mode === 'fuel' ? '#fff' : 'var(--c-text-3)',
-          boxShadow: mode === 'fuel' ? '0 2px 8px var(--c-accent-glow)' : 'none',
+          boxShadow: mode === 'fuel' ? '0 2px 8px var(--c-primary-glow)' : 'none',
         }}
       >
         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">

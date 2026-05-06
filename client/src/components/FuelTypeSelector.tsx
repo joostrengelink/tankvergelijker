@@ -19,10 +19,10 @@ export default function FuelTypeSelector({ selected, onChange }: Props) {
           style={{
             fontFamily: "'Barlow Condensed', sans-serif",
             letterSpacing: '0.05em',
-            background: selected === fuel ? 'var(--c-accent)' : 'var(--c-surface-2)',
+            background: selected === fuel ? 'var(--c-primary)' : 'var(--c-surface-2)',
             color: selected === fuel ? '#fff' : 'var(--c-text-3)',
-            border: `1px solid ${selected === fuel ? 'var(--c-accent)' : 'var(--c-border)'}`,
-            boxShadow: selected === fuel ? '0 2px 8px var(--c-accent-glow)' : 'none',
+            border: `1px solid ${selected === fuel ? 'var(--c-primary)' : 'var(--c-border)'}`,
+            boxShadow: selected === fuel ? '0 2px 8px var(--c-primary-glow)' : 'none',
           }}
         >
           {FUEL_LABELS[fuel]}

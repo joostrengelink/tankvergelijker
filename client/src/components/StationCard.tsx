@@ -32,15 +32,15 @@ export default function StationCard({
   const isCheapest = priceDiff === 0;
 
   const cardBg = isSelected
-    ? 'var(--c-accent-dim)'
+    ? 'var(--c-primary-dim)'
     : isBestPick
-    ? 'var(--c-gold-dim)'
+    ? 'var(--c-highlight-dim)'
     : 'var(--c-surface)';
 
   const cardBorder = isSelected
-    ? 'var(--c-accent)'
+    ? 'var(--c-primary)'
     : isBestPick && !isActive
-    ? 'var(--c-gold)'
+    ? 'var(--c-highlight)'
     : isHovered
     ? 'var(--c-border-strong)'
     : 'var(--c-border)';
@@ -66,9 +66,9 @@ export default function StationCard({
       {/* Best pick banner */}
       {isBestPick && (
         <div className="px-4 pt-3 pb-0 flex items-center gap-1.5">
-          <Star size={11} style={{ color: 'var(--c-gold)' }} strokeWidth={2.5} />
+          <Star size={11} style={{ color: 'var(--c-highlight)' }} strokeWidth={2.5} />
           <span className="text-[10px] font-black uppercase tracking-widest"
-            style={{ color: 'var(--c-gold)', fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '0.1em' }}>
+            style={{ color: 'var(--c-highlight)', fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: '0.1em' }}>
             Beste keuze voor jou
           </span>
         </div>
@@ -79,7 +79,7 @@ export default function StationCard({
         <div
           className="flex-shrink-0 w-8 h-8 flex items-center justify-center text-sm font-black rounded-[10px]"
           style={{
-            background: isBestPick ? 'var(--c-gold)' : isActive ? 'var(--c-accent)' : 'var(--c-surface-2)',
+            background: isBestPick ? 'var(--c-highlight)' : isActive ? 'var(--c-primary)' : 'var(--c-surface-2)',
             color: isBestPick ? '#111' : isActive ? '#fff' : 'var(--c-text-3)',
             fontFamily: "'Barlow Condensed', sans-serif",
           }}
@@ -134,13 +134,13 @@ export default function StationCard({
                   className="h-full rounded-full transition-all duration-500"
                   style={{
                     width: `${barWidth}%`,
-                    background: isBestPick ? 'var(--c-gold)' : 'var(--c-accent)',
+                    background: isBestPick ? 'var(--c-highlight)' : 'var(--c-primary)',
                   }}
                 />
               </div>
               {isCheapest ? (
                 <span className="flex items-center gap-0.5 text-[10px] font-black flex-shrink-0"
-                  style={{ color: 'var(--c-gold)', fontFamily: "'Barlow Condensed', sans-serif" }}>
+                  style={{ color: 'var(--c-highlight)', fontFamily: "'Barlow Condensed', sans-serif" }}>
                   <TrendingDown size={10} />GOEDKOOPST
                 </span>
               ) : priceDiff !== null && priceDiff > 0 && tankDiff !== null ? (
@@ -159,7 +159,7 @@ export default function StationCard({
               <div className="text-2xl font-black leading-none"
                 style={{
                   fontFamily: "'Barlow Condensed', sans-serif",
-                  color: isBestPick ? 'var(--c-gold)' : isActive ? 'var(--c-accent)' : 'var(--c-text)',
+                  color: isBestPick ? 'var(--c-highlight)' : isActive ? 'var(--c-primary)' : 'var(--c-text)',
                   letterSpacing: '-0.01em',
                 }}>
                 €{price.toFixed(3)}
